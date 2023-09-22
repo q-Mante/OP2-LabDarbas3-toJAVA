@@ -1,8 +1,9 @@
 package ProductAnalysis;
 
+import java.util.InvalidPropertiesFormatException;
 import java.util.Objects;
 
-public class GeneralProductInfo implements Comparable<GeneralProductInfo> {
+public class GeneralProductInfo implements Comparable<GeneralProductInfo>, TableGeneric {
 
     String Name;
     int Validity;
@@ -38,14 +39,16 @@ public class GeneralProductInfo implements Comparable<GeneralProductInfo> {
     }
 
     public boolean equals(GeneralProductInfo o) {
-        if (o == null) return false;
+        if (o == null)
+            return false;
 
         return Name.equals(o.Name);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
+        if (obj == null)
+            return false;
 
         if (obj instanceof GeneralProductInfo) {
             GeneralProductInfo o = (GeneralProductInfo) obj;
@@ -58,5 +61,36 @@ public class GeneralProductInfo implements Comparable<GeneralProductInfo> {
     @Override
     public int hashCode() {
         return Objects.hash(Name);
+    }
+
+    @Override
+    public String toString() {
+        return this.toString("DEFAULT");
+    }
+
+    public String toString(String format) {
+        switch (format.toUpperCase())
+        {
+            case "DEFAULT":
+                return String.format("| %-30s | %25s | %7s |",
+                        Name, Validity, Price);
+            default:
+                throw new IllegalArgumentException(String.format("The %s format string is not supported.", format));
+        }
+    }
+
+    public String Header() {
+        return this.Header("DEFAULT");
+    }
+
+    public String Header(String format) {
+
+        switch (format.toUpperCase()) {
+            case "DEFAULT":
+                return String.format("| %-30s | %-25s | %-7s |",
+                        "Prekės pavadinimas", "Galiojimo laikotarpis (d)", "Kaina \u20AC");
+            default:
+                throw new IllegalArgumentException(String.format("The %s format string is not supported.", format));
+        }
     }
 }

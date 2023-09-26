@@ -52,7 +52,7 @@ public class Shop implements Comparable<Shop>, TableGeneric {
 
     public void findExpires(LinkList<ShopProductInfo> expires, int days) {
         for (ShopProductInfo info : shopProductInfos) {
-            if (info.getExpire().compareTo(new Date()) >= 0 && info.getExpire().compareTo(new Date(new Date().getTime() + (long) days * 24 * 60 * 60 * 1000)) <= 0) {
+            if (info.getExpire().compareTo(new Date()) <= 0 && info.getExpire().compareTo(new Date(new Date().getTime() + (long) days * 24 * 60 * 60 * 1000)) <= 0) {
                 expires.Add(info);
             }
         }

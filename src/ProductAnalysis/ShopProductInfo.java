@@ -2,7 +2,6 @@ package ProductAnalysis;
 
 import java.util.*;
 import java.text.*;
-import java.util.Objects;
 
 public class ShopProductInfo implements Comparable<ShopProductInfo>, TableGeneric {
     private String Name;
@@ -10,6 +9,26 @@ public class ShopProductInfo implements Comparable<ShopProductInfo>, TableGeneri
     private int Sold;
     private int Stock;
     private GeneralProductInfo ProductInfo;
+
+    public String getName() {
+        return Name;
+    }
+
+    public Date getArrived() {
+        return Arrived;
+    }
+
+    public int getSold() {
+        return Sold;
+    }
+
+    public int getStock() {
+        return Stock;
+    }
+
+    public GeneralProductInfo getProductInfo() {
+        return ProductInfo;
+    }
 
     public Date getExpire() {
         Calendar calendar = Calendar.getInstance();
@@ -75,6 +94,7 @@ public class ShopProductInfo implements Comparable<ShopProductInfo>, TableGeneri
         return toString("DEFAULT");
     }
 
+    @Override
     public String toString(String format) {
 
         switch (format.toUpperCase()) {

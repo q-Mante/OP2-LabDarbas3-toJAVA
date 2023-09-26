@@ -1,68 +1,46 @@
-import ProductAnalysis.GeneralProductInfo;
-import ProductAnalysis.LinkList;
-import ProductAnalysis.ShopProductInfo;
+import ProductAnalysis.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    private final static String fileFirstPath = "src\\Data\\U19a.txt";
+    private final static String fileSecondPath = "src\\Data\\U19b.txt";
+    private final static String fileResultPath = "src\\Data\\Results.txt";
 
-        GeneralProductInfo a = new GeneralProductInfo("Duona", 10, 9.99f);
-        Date date = new Date(123, Calendar.SEPTEMBER, 10);
-        ShopProductInfo A = new ShopProductInfo("Duona", date, 100, 1000, a);
+    public static void main(String[] args) throws IOException {
 
-        System.out.println(date);
+        if (Files.exists(Path.of(fileResultPath)))
+            Files.delete(Path.of(fileResultPath));
 
-        //GeneralProductInfo class print test
-        System.out.println(a.Header());
-        System.out.println(a);
+        LinkList<GeneralProductInfo> AllInformations = InOutUtils.readInformations(fileSecondPath);
+        LinkList<Shop> AllShops = InOutUtils.readShops(fileFirstPath, AllInformations);
 
-        //Space
-        System.out.println();
+        if (AllShops != null && AllShops.getCount() != 0) {
 
-        //ShopProductInfo class print test
-        System.out.println(A.Header());
-        System.out.println(A);
+            // Writing results to file
+            InOutUtils.print(fileResultPath, "Duomenys: U19a.txt", AllShops, "INPUT");
+        } else {
 
-        //Space
-        System.out.println();
-
-        // LinkList Test
-        LinkList<String> list = new LinkList<>();
-        list.Add("C");
-        list.Add("B");
-        list.Add("D");
-
-        for (String i:list) {
-            System.out.println(i);
+            // Writing results to file
+            Files.write(Paths.get(fileResultPath), "Duomenų nėra.\n\n".getBytes(), StandardOpenOption.APPEND);
         }
 
-        //Space
-        System.out.println();
+        if (AllInformations != null && AllInformations.getCount() != 0) {
 
-        System.out.println(list.Contains("B"));
-        System.out.println(list.Contains("J"));
+            // Writing results to file
+            InOutUtils.print(fileResultPath, "Duomenys: U19b.txt", AllInformations, "DEFAULT");
+        } else {
 
-        //Space
-        System.out.println();
-
-        list.Remove("D");
-        list.Add("E");
-        list.Add("A");
-
-        for (String i:list) {
-            System.out.println(i);
-        }
-
-        //Space
-        System.out.println();
-
-        list.Sort();
-
-        for (String i:list) {
-            System.out.println(i);
+            // Writing results to file
+            Files.write(Paths.get(fileResultPath), "Duomenų nėra.\n\n".getBytes(), StandardOpenOption.APPEND);
         }
     }
 }

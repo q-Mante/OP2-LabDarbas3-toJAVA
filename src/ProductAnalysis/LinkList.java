@@ -77,6 +77,19 @@ public class LinkList<T extends Comparable<T>> implements Iterable<T> {
         return false;
     }
 
+    public Node<T> Find(T value) {
+        Node<T> next = Head;
+
+        while (next != null) {
+            if ((value == null && next.Value == null) || (value != null && value.equals(next.Value))) {
+                return next;
+            }
+            next = next.Link;
+        }
+
+        return null;
+    }
+
     public void Sort() {
         for (Node<T> iterator1 = Head; iterator1 != null; iterator1 = iterator1.Link) {
             Node<T> min = iterator1;

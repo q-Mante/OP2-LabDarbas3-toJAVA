@@ -1,6 +1,5 @@
 package ProductAnalysis;
 
-import java.util.InvalidPropertiesFormatException;
 import java.util.Objects;
 
 public class GeneralProductInfo implements Comparable<GeneralProductInfo>, TableGeneric {
@@ -68,6 +67,7 @@ public class GeneralProductInfo implements Comparable<GeneralProductInfo>, Table
         return this.toString("DEFAULT");
     }
 
+    @Override
     public String toString(String format) {
         switch (format.toUpperCase())
         {
